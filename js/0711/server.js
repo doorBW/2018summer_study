@@ -4,8 +4,10 @@ const port=3000;
 const bodyParser=require('body-parser');
 
 const crawlNaver=require('./api/crawlNaver.js');
+const crawlDaum=require('./api/crawlDaum.js');
 const mongoose=require('mongoose');
 const Webtoon=require('./model/webtoons.js');
+const daumWebtoon=require('./model/daum_webtoons.js');
 
 const secret="12345";
 app.use(bodyParser.urlencoded({extended:false}));
@@ -43,6 +45,37 @@ app.post('/crawl_naver',(req,res)=>{
 
 app.get('/list_naver',(req,res)=>{
     Webtoon.find((err,data)=>{
+        if(err)console.error(err);
+        else{
+            res.json(data);
+        }
+    })
+})
+
+app.post('/crawl_daum',(req,res)=>{
+    if(req.body.secret === secret){
+        crawlDaum().then(()=>{
+            res.json({
+                path: '/crawl_daum',
+                crawl: 'doing'
+            })
+        });
+        
+    }else{
+        res.json({
+            path: '/crawl_daum'
+        })
+    }
+}).get('/crawl_daum',(req,res)=>{
+    crawlDaum().then(()=>{
+        res.json({
+            path: '/crawl_daum GET'
+        })
+    })
+})
+
+app.get('/list_daum',(req,res)=>{
+    daumWebtoon.find((err,data)=>{
         if(err)console.error(err);
         else{
             res.json(data);
