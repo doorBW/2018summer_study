@@ -22,13 +22,13 @@ contents = soup.select(
 contents = map(str,contents)
 
 for content in contents:
-	print(content)
+	print(content) # 가져온 코드
+	# 여기에 정규식 표현 사용
+	reg_content = re.sub('정규식패턴','대체할텍스트',입력텍스트)
 	reg_content = re.sub(r'<br/>','엔터',content)
 	reg_content = re.sub(r'\(+[a-zA-Z &-;]+\)+|\<+[a-zA-Z &-;\"=/]+\>+','',reg_content)
 	reg_content = re.sub(r'break time','쉬는 시간',reg_content)
 	reg_content = re.sub(r'[&a-zA-Z \-;]{5,}','',reg_content)
 	reg_content = re.sub(r'(엔터){3,3}','',reg_content)
 	reg_content = re.sub(r'엔터','\n',reg_content)
-	print("@@@@@@@@",reg_content)
-	# temp = re.findall(r'\<+[a-zA-Z &-;]+\>+',reg_content)
-	# print("$$$",temp)
+	

@@ -11,3 +11,12 @@ VALUES
   , ('2016-08-26 12:02:01', 'http://www.other.net/path1/index.php?k1=v1&k2=v2#Ref1', 'http://www.example.com/video#ref'          )
   , ('2016-08-26 12:02:01', 'https://www.other.com/'                               , 'http://www.example.com/book/detail?id=002' )
 ;
+
+select stamp, substring(referrer from 'https?://([^/]*)') as referrer_host
+from access_log;
+
+select stamp, substring(url from '//[^/]+([^?#]+)') as path,
+substring(url from 'id=([^&]*)') as id
+from access_log;
+
+select substring(url from '//[^/]+([^?#]+)') from access_log;

@@ -11,3 +11,12 @@ VALUES
   , ('U002', '2016-08-26', 2)
   , ('U003', '2016-08-27', 3)
 ;
+
+select user_id, case
+when register_device = 1 then 'desktop',
+when register_device = 2 then 'smartphone',
+when register_device = 3 then 'application'
+else 'default'
+end as device_name
+from mst_users;
+
